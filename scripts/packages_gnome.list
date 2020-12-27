@@ -9,6 +9,7 @@ dev-vcs/git
 net-misc/wget
 sys-apps/diffutils
 sys-apps/ethtool
+dev-lang/rust-bin
 
 # Applications
 www-client/firefox
