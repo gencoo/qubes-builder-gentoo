@@ -1,0 +1,10 @@
+grub2-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=qubes --removable
+useradd -m -G users,wheel,audio,qubes -s /bin/bash user
+grub2-mkconfig -o /boot/efi/EFI/qubes/grub.cfg
+mount /dev/sda3 /mnt/
+mount -t tmpfs -o size=10G tmpfs /var/tmp/portage
+env-update && source /etc/profile && export PS1="(chroot) ${PS1}"
+systemctl status qubes-core.service qubes-qmemman.service qubesd.service
+sh repoAdd.sh qubes-core/
+sh /home/user/init_tmp.sh
+su user

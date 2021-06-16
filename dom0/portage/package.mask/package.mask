@@ -1,0 +1,10 @@
+app-text/mupdf
+>dev-qt/linguist-tools-5.15.2-r9
+>sys-libs/libblockdev-2.24-r2
+>xfce-base/garcon-0.8.0-r2
+>xfce-base/xfwm4-4.16.1-r2
+>app-emulation/libvirt-6.6.0
+>app-emulation/xen-4.14.2-r2
+>app-emulation/xen-tools-4.14.2-r2
+>dev-python/libvirt-python-6.6.0
+>=www-client/firefox-bin-90

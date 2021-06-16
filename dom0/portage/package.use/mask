@@ -1,0 +1,14 @@
+app-misc/tracker -miners
+app-misc/tracker-miners -*
+gnome-base/gnome-shell -browser-extension -bluetooth
+net-libs/webkit-gtk -geolocation -jpeg2k -jumbo-build -libnotify -opengl -spell -egl -gnome-keyring -seccomp -systemd 
+net-misc/networkmanager -ppp -bluetooth -wext
+net-print/cups-filters -pdf
+x11-libs/gtk+ -colord -cups
+media-libs/mesa -gallium -llvm -gbm -zstd
+media-libs/gst-plugins-base -ogg -orc -pango -theora -vorbis
+app-text/evince gstreamer -tiff
+gnome-base/nautilus gstreamer
+media-sound/mpg123 -alsa -sdl
+dev-lang/yasm -nls
+

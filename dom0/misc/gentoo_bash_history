@@ -1,0 +1,32 @@
+sudo emerge --ask app-portage/gentoolkit ntfs3g libXScrnSaver repoman  fuse proxychains
+ln -s /etc/portage ~/portage
+ln -s /var/db/repos ~/repos
+eselect fontconfig enable 5 12 56
+qlist -IRv
+lsblk -f
+lsblk --discard
+tzselect 
+eselect locale list
+sudo cp myqubes-init.sh /usr/lib/qubes/init/
+sudo cp qubes-ensure-lib-modules.service /usr/lib/systemd/system/
+sudo mv /usr/lib/firmware/{intel,i915} /usr/lib/
+sudo dnf remove linux-firmware
+sudo mv /usr/lib/{intel,i915} /usr/lib/firmware/
+sudo mount /dev/sda4 /mnt/
+sudo systemctl mask plymouth-quit-wait.service
+sudo systemctl mask systemd-udev-settle.service
+sudo systemctl restart lightdm
+systemd-analyze blame
+sudo vim /etc/locale.gen
+sudo locale-gen 
+sudo eclean-pkg
+sudo eclean -d distfiles
+sudo dispatch-conf
+sudo emerge @preserved-rebuild
+sudo emerge --depclean && revdep-rebuild
+sudo emerge --update --newuse --deep --with-bdeps=y @world
+sudo emerge-webrsync
+sudo emerge --sync
+sudo mount -t tmpfs -o size=6G tmpfs /var/tmp/portage
+sudo emerge --ask --verbose --update --deep --newuse @world
+sudo mount /dev/xvdi /mnt/

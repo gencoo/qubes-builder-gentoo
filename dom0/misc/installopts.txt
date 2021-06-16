@@ -1,0 +1,115 @@
+Install:
+einstall [make options]
+This is used as a replacement for make install. Performs:
+make \
+        prefix=${ED}/usr \
+        datadir=${ED}/usr/share \
+        infodir=${ED}/usr/share/info \
+        localstatedir=${ED}/var/lib \
+        mandir=${ED}/usr/share/man \
+        sysconfdir=${ED}/etc \
+        ${EXTRA_EINSTALL} \
+        make options \
+        install
+Please do not use this in place of 'emake install DESTDIR=${D}'. That is the preferred way of installing make-based packages. Also, do not utilize the EXTRA_EINSTALL variable since it is for users.
+docompress [-x] <path> [list of more paths]
+Beginning with EAPI 4, the docompress helper is used to manage lists of files to be included or excluded from optional compression. If the first argument is -x, add each of its subsequent arguments to the exclusion list. Otherwise, add each argument to the inclusion list. The inclusion list initially contains /usr/share/doc, /usr/share/info, and /usr/share/man. The exclusion list initially contains /usr/share/doc/${PF}/html.
+The optional compression shall be carried out after src_install has completed, and before the execution of any subsequent phase function. For each item in the inclusion list, pretend it has the value of the D variable prepended, then:
+
+If it is a directory, act as if every file or directory immediately under this directory were in the inclusion list.
+If the item is a file, it may be compressed unless it has been excluded as described below.
+
+If the item does not exist, it is ignored.
+
+Whether an item is to be excluded is determined as follows: For each item in the exclusion list, pretend it has the value of the D variable prepended, then:
+
+If it is a directory, act as if every file or directory immediately under this directory were in the exclusion list.
+If the item is a file, it shall not be compressed.
+
+If the item does not exist, it is ignored.
+
+dosed s:orig:change:g <filename>
+Beginning with EAPI 4, the dosed helper no longer exists. Ebuilds should call sed(1) directly (and assume that it is GNU sed).
+Performs sed in place on filename inside ${ED}. If no expression is given then "s:${D}::g" is used as the default expression. Note that this expression does NOT use the offset prefix.
+'dosed s:/usr/local:/usr:g /usr/bin/some-script' runs sed on ${ED}/usr/bin/some-script
+
+dodir <path> [more paths]
+Creates directories inside of ${ED}.
+'dodir /usr/lib/apache' creates ${ED}/usr/lib/apache. Note that the do* functions will run dodir for you. If this directory will be empty when it is merged, then please use keepdir instead.
+diropts [options for install(1)]
+Can be used to define options for the install function used in dodir. The default is -m0755.
+into <path>
+Sets the root (DESTTREE) for other functions like dobin, dosbin, doman, doinfo, dolib.
+The default root is /usr.
+keepdir <path> [more paths]
+Similar to dodir, but used to create directories that would otherwise be empty. The treatment of completely-empty directories is undefined by PMS, and using keepdir ensures that they are tracked.
+dobin <binary> [list of more binaries]
+Installs a binary or a list of binaries into DESTTREE/bin. Creates all necessary dirs.
+dosbin <binary> [list of more binaries]
+Installs a binary or a list of binaries into DESTTREE/sbin. Creates all necessary dirs.
+doinitd <init.d script> [list of more init.d scripts]
+Install Gentoo init.d scripts. They will be installed into the correct location for Gentoo init.d scripts (/etc/init.d/). Creates all necessary dirs.
+doconfd <conf.d file> [list of more conf.d file]
+Install Gentoo conf.d files. They will be installed into the correct location for Gentoo conf.d files (/etc/conf.d/). Creates all necessary dirs.
+doenvd <env.d entry> [list of more env.d entries]
+Install Gentoo env.d entries. They will be installed into the correct location for Gentoo env.d entries (/etc/env.d/). Creates all necessary dirs.
+dolib <library> [list of more libraries]
+dolib.a <library> [list of more libraries]
+dolib.so <library> [list of more libraries]
+Installs a library or a list of libraries into DESTTREE/lib. Creates all necessary dirs.
+libopts [options for install(1)]
+Can be used to define options for the install function used in the dolib functions. The default is -m0644.
+doman [-i18n=<locale>] <man-page> [list of more man-pages]
+Installs manual-pages into /usr/share/man/man[0-9n] depending on the manual file ending. The files are compressed if they are not already. You can specify locale-specific manpages with the -i18n option. Then the man-page will be installed into /usr/share/man/<locale>/man[0-9n]. Beginning with EAPI 2, a locale-specific manpage which contains a locale in the file name will be installed in /usr/share/man/<locale>/man[0-9n], with the locale portion of the file name removed, and the -i18n option has no effect. For example, with EAPI 2, a manpage named foo.<locale>.1 will be installed as /usr/share/man/<locale>/man1/foo.1. Beginning with EAPI 4, the -i18n option takes precedence over the locale suffix of the file name.
+dohard <filename> <linkname>
+Beginning with EAPI 4, the dohard helper no longer exists. Ebuilds should call ln(1) directly.
+dosym <filename> <linkname>
+Performs the ln command to create a symlink.
+doheader [-r] <file> [list of more files]
+Installs the given header files into /usr/include/, by default with file mode 0644 (this can be overridden with the insopts function). Setting -r sets recursive. The doheader helper is available beginning with EAPI 5.
+dohtml [-a filetypes] [-r] [-x list-of-dirs-to-ignore] [list-of-files-and-dirs]
+Installs the files in the list of files (space-separated list) into /usr/share/doc/${PF}/html provided the file ends in .htm, .html, .css, .js, Setting -a limits what types of files will be included, -A appends to the default list, setting -x sets which dirs to exclude (CVS excluded by default), -p sets a document prefix, -r sets recursive.
+doinfo <info-file> [list of more info-files]
+Installs info-pages into DESTDIR/info. Files are automatically gzipped. Creates all necessary dirs.
+domo <locale-file> [list of more locale-files]
+Installs locale-files into DESTDIR/usr/share/locale/[LANG] depending on local-file's ending. Creates all necessary dirs.
+
+
+	fowners root:qubes 
+	fperms 770 
+	fdir="${D}" && chown root:qubes $fdir && chmod 0664 $fdir
+	fowners root:qubes {}
+	fperms 2770 {}
+fowners [-h|-H|-L|-P|-R] [user][:group] <file> [files]
+fperms [-R] <permissions> <file> [files]
+
+Performs chown (fowners) or chmod (fperms), applying permissions to files.
+insinto [path]
+Sets the destination path for the doins function.
+The default path is /.
+insopts [options for install(1)]
+Can be used to define options for the install function used in doins. The default is -m0644.
+doins [-r] <file> [list of more files]
+Installs files into the path controlled by insinto. This function uses install(1). Creates all necessary dirs. Setting -r sets recursive. Beginning with EAPI 4, both doins and newins preserve symlinks. In EAPI 3 and earlier, symlinks are dereferenced rather than preserved.
+exeinto [path]
+Sets the destination path for the doexe function.
+The default path is /.
+exeopts [options for install(1)]
+Can be used to define options for the install function used in doexe. The default is -m0755.
+doexe <executable> [list of more executables]
+Installs executables into the path controlled by exeinto. This function uses install(1). Creates all necessary dirs.
+docinto [path]
+Sets the subdir used by dodoc and dohtml when installing into the document tree (based in /usr/share/doc/${PF}/). Default is no subdir, or just "".
+dodoc [-r] <document> [list of more documents]
+Installs a document or a list of documents into /usr/share/doc/${PF}/<docinto path>. Documents are marked for compression. Creates all necessary dirs. Beginning with EAPI 4, there is support for recursion, enabled by the new -r option.
+newbin <old file> <new filename>
+newsbin <old file> <new filename>
+newinitd <old file> <new filename>
+newconfd <old file> <new filename>
+newenvd <old file> <new filename>
+newlib.so <old file> <new filename>
+newlib.a <old file> <new filename>
+newman <old file> <new filename>
+newins <old file> <new filename>
+newexe <old file> <new filename>
+newdoc <old file> <new filename>

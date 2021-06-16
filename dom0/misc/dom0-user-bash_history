@@ -1,0 +1,16 @@
+sudo gpasswd -a user qubes && echo "exec startxfce4" ~/.xinitrc && systemctl --user enable pulseaudio
+vim .xsession-errors
+qubes-prefs default-kernel ''
+sudo mount /dev/sda3 /mnt/ && sudo mount -t tmpfs -o size=10G tmpfs /var/tmp/portage
+sudo ln -s misc hwdata
+sudo systemctl restart lightdm
+systemctl status qubes-core qubes-qmemman qubesd qubes-qrexec-policy-daemon libvirtd
+rpm -q --scripts *.rpm >> post.sh
+diff -Nur a b > 1.patch
+source /etc/profile && export PS1="(chroot) ${PS1}"
+qubes-prefs default-kernel 5.10.42-1.fc32
+sudo emerge --ask --verbose --update --deep --newuse @world
+journalctl -xe
+sudo sh init_tmp.sh && cd /var/db/repos/qubes/
+sudo sh repoAdd.sh
+sudo emerge --ask 

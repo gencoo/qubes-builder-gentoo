@@ -1,0 +1,63 @@
+# xen-tools: ensure useless libraries are not built at all
+app-emulation/xen-tools -ipxe -pam -rombios system-seabios python sdl qemu
+app-emulation/xen efi
+dev-libs/glib utils
+sys-devel/gcc lto -nls -fortran openmp -vtv
+sys-devel/binutils cxx multitarget plugins
+app-arch/libarchive -*
+app-arch/tar -acl -nls
+app-arch/rpm python lua -openmp -dbus -nls caps
+app-crypt/pinentry -ncurses
+media-libs/libcanberra -gstreamer -gtk 
+dev-qt/qtnetwork -ssl
+dev-qt/qtwebsockets -ssl
+x11-base/xorg-drivers evdev
+media-video/pipewire sndfile jack
+media-sound/jack2 sndfile libsamplerate opus
+media-sound/pulseaudio -ipv6 -webrtc-aec -bluetooth jack sox
+sys-libs/libselinux pcre2 python
+*/openssl -bindist
+dev-lang/python -bluetooth
+media-libs/libsdl2 -wayland
+# required by xfce-base/xfce4-panel-4.16.2-r1::gentoo[dbusmenu]
+# required by xfce-base/thunar-4.16.8::gentoo[trash-panel-plugin]
+# required by xfce-base/xfdesktop-4.16.0::gentoo[thunar]
+# required by xfce-base/xfce4-meta-4.16-r2::gentoo
+# required by xfce-base/xfce4-meta (argument)
+>=dev-libs/libdbusmenu-16.04.0-r1 gtk3
+# required by x11-base/xorg-server-1.20.11::gentoo[-minimal]
+# required by x11-base/xorg-drivers-1.20-r2::gentoo[-input_devices_evdev,input_devices_libinput]
+>=media-libs/mesa-21.0.3 gbm
+>=app-dom0/libblockdev-2.24 kbd lvm mpath
+>=dev-libs/libbytesize-2.5 python
+# required by dev-python/PyQt5-5.15.2::gentoo[network]
+# required by dev-python/pyudev-0.22.0::gentoo[qt5,-test]
+>=sys-block/parted-3.4 device-mapper
+# required by sys-boot/plymouth-0.9.5-r1::gentoo[libkms]
+>=x11-libs/libdrm-2.4.105 libkms
+>=sys-libs/libblockdev-2.24 mpath kbd lvm
+>=app-editors/vim-core-8.2.0814 minimal
+# required by dev-python/pyzmq-20.0.0::gentoo[-test]
+# required by app-admin/salt-3000.8::gentoo[zeromq]
+# required by salt (argument)
+>=net-libs/zeromq-4.3.4-r1 drafts
+# required by media-sound/pavucontrol-4.0::gentoo
+# required by media-sound/pavucontrol (argument)
+>=media-libs/libcanberra-0.30-r5 gtk3
+# required by dev-python/PyQt5-5.15.2::gentoo[network]
+# required by app-dom0/qubes-manager-4.1.15::qubes
+# required by @selected
+# required by @world (argument)
+>=dev-qt/qtnetwork-5.15.2-r1 ssl
+# required by dev-qt/qtwebsockets-5.15.2::gentoo
+# required by @selected
+# required by @world (argument)
+>=dev-qt/qtnetwork-5.15.2-r1 -ssl
+>=media-libs/opus-1.3.1-r1 custom-modes
+# required by qubes-core/admin-linux-4.1.11::qubes
+# required by qubes-core/admin-4.1.20::qubes
+# required by qubes-core/qrexec-4.1.12::qubes
+# required by qubes-gui/daemon-4.1.12::qubes
+# required by qubes-misc/meta-packages-4.1.12::qubes
+# required by qubes-misc/meta-packages (argument)
+>=qubes-misc/utils-4.1.14 dom0

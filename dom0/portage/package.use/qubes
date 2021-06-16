@@ -1,0 +1,12 @@
+qubes-*/* pandoc-bin python_targets_python3_8 -python_targets_python3_9 python_single_target_python3_8 -python_single_target_python3_9
+qubes-mgmt/artwork python_targets_python3_9
+app-emulation/libvirt -policykit -qemu -virt-network -nls xen sasl parted 
+dev-python/* python_targets_python3_8 python_single_target_python3_8
+app-emulation/xen-* python_targets_python3_8 -python_targets_python3_9 python_single_target_python3_8 -python_single_target_python3_9
+net-firewall/iptables ipv6
+dev-libs/cyrus-sasl -berkdb -gdbm
+dev-python/PyQt5 -dbus -multimedia -printsupport  -svg -ssl
+qubes-misc/grub2-xen grub_platforms_xen grub_platforms_xen-pvh
+qubes-misc/grub2 grub_platforms_efi-64
+>=x11-base/xorg-server-1.20.11 kdrive xvfb suid xephyr
+dev-qt/qtprintsupport -cups
