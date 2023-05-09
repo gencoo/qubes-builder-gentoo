@@ -1,4 +1,5 @@
 #!/bin/bash
+/usr/bin/qubes-prefs default-template fedora-34
 qubesctl saltutil.clear_cache
 qubesctl saltutil.sync_all
 qubesctl top.enable qvm.sys-net

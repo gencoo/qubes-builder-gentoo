@@ -1,2 +1,0 @@
-CFLAGS =-"-pipe -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -flto=auto" 
-CFLAGS =+"-Wundef -Wwrite-strings -fmerge-all-constants -frounding-math -Wold-style-definition -fmath-errno  -fsignaling-nans -ftls-model=initial-exec"

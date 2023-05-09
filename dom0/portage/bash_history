@@ -1,0 +1,29 @@
+sudo emerge --ask app-portage/gentoolkit
+sudo emerge --ask app-crypt/veracrypt
+qlist -IRv
+lsblk -f
+lsblk --discard
+sudo eclean-dist
+sudo eclean-pkg
+sudo eclean -d distfiles
+sudo dispatch-conf
+sudo make install
+sudo genkernel --install initramfs
+sudo genkernel --menuconfig all 
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo emerge @preserved-rebuild
+sudo emerge --depclean && revdep-rebuild
+sudo emerge --ask --verbose --update --deep --newuse @world
+sudo emerge-webrsync
+sudo tar -Jcf linux-4.19.86.tar.xz linux-4.19.86/
+sudo eclean-pkg
+sudo eclean -d distfiles
+sudo mount /dev/xvdi /var/cache/binpkgs/
+sudo eclean-dist
+sudo eclean-pkg
+sudo eclean -d distfiles
+sudo emerge --depclean && revdep-rebuild
+sudo emerge --update --newuse --deep --with-bdeps=y @world
+gsettings set org.gnome.desktop.interface scaling-factor 2
+sudo mount /dev/xvdi /var/cache/binpkgs/
+
